@@ -30,16 +30,6 @@ public class CustomerStepDefinitions {
     this.birthday = DEFAULT_BIRTHDAY;
   }
 
-  @Given("the customer first name is {string}")
-  public void theCustomerFirstNameIs(String firstName) {
-    this.firstName = firstName;
-  }
-
-  @Given("the customer last name is {string}")
-  public void theCustomerLastNameIs(String lastName) {
-    this.lastName = lastName;
-  }
-
   @Given("the customer's birthday is {}")
   public void theCustomersBirthdayIs(String date) {
     this.birthday = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
