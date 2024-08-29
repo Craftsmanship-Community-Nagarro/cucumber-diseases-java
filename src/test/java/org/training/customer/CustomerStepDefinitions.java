@@ -88,12 +88,6 @@ public class CustomerStepDefinitions {
   }
 
   @Given("there is a customer")
-  public void thereIsACustomer(DataTable customerTable) {
-    List<List<String>> row = customerTable.asLists(String.class);
-
-    customerService.addCustomer(row.get(0).get(0), row.get(0).get(1), this.birthday);
-  }
-
   @Given("there are some customers")
   public void thereAreSomeCustomers(DataTable customerTable) {
     List<Map<String, String>> rows = customerTable.asMaps(String.class, String.class);
