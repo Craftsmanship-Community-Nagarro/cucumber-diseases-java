@@ -27,6 +27,7 @@ public class CustomerStepDefinitions {
 
   public CustomerStepDefinitions(CustomerService customerService) {
     this.customerService = customerService;
+    this.birthday = DEFAULT_BIRTHDAY;
   }
 
   @Given("the customer first name is {string}")
@@ -59,7 +60,7 @@ public class CustomerStepDefinitions {
   @When("the customer is created")
   public void theCustomerIsCreated() {
     try {
-      customerService.addCustomer(firstName, lastName, DEFAULT_BIRTHDAY);
+      customerService.addCustomer(firstName, lastName, this.birthday);
     } catch (IllegalArgumentException e) {
       error = e;
     }
@@ -68,7 +69,7 @@ public class CustomerStepDefinitions {
   @When("an invalid customer is created")
   public void anInvalidCustomerIsCreated() {
     try {
-      customerService.addCustomer(firstName, lastName, DEFAULT_BIRTHDAY);
+      customerService.addCustomer(firstName, lastName, this.birthday);
     } catch (IllegalArgumentException e) {
       error = e;
     }
@@ -91,7 +92,7 @@ public class CustomerStepDefinitions {
 
   @Then("the second customer creation should fail")
   public void theSecondCustomerCreationShouldFail() {
-    Throwable error = catchThrowable(() -> customerService.addCustomer(secondFirstName, secondLastName, DEFAULT_BIRTHDAY));
+    Throwable error = catchThrowable(() -> customerService.addCustomer(secondFirstName, secondLastName, this.birthday));
 
     Assertions.assertThat(error).isNotNull().hasMessage("Customer already exists");
   }
@@ -108,7 +109,7 @@ public class CustomerStepDefinitions {
   public void thereIsACustomer(DataTable customerTable) {
     List<List<String>> row = customerTable.asLists(String.class);
 
-    customerService.addCustomer(row.get(0).get(0), row.get(0).get(1), DEFAULT_BIRTHDAY);
+    customerService.addCustomer(row.get(0).get(0), row.get(0).get(1), this.birthday);
   }
 
   @Given("there are some customers")
@@ -116,7 +117,7 @@ public class CustomerStepDefinitions {
     List<Map<String, String>> rows = customerTable.asMaps(String.class, String.class);
 
     for (Map<String, String> col : rows) {
-      customerService.addCustomer(col.get("firstname"), col.get("lastname"), DEFAULT_BIRTHDAY);
+      customerService.addCustomer(col.get("firstname"), col.get("lastname"), this.birthday);
     }
   }
 
@@ -158,7 +159,7 @@ public class CustomerStepDefinitions {
 
   @Then("the second customer can be found")
   public void theSecondCustomerCanBeFound() {
-    customerService.addCustomer(secondFirstName, secondLastName, DEFAULT_BIRTHDAY);
+    customerService.addCustomer(secondFirstName, secondLastName, this.birthday);
     var customer = customerService.searchCustomer(secondFirstName, secondLastName);
 
     Assertions.assertThat(customer.firstName).isEqualTo(secondFirstName);
