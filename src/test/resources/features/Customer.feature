@@ -11,8 +11,8 @@ Feature: Customer
     Scenario: Should find newly created customer
       Given there are no customers
       And the customer name is Rose Smith
-      When the customer is created
-      And all customers are searched
+      And the customer is created
+      When all customers are searched
       Then the number of customers found is 1
 
 

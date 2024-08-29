@@ -119,7 +119,7 @@ public class CustomerStepDefinitions {
 
   @Then("the customer can be found")
   public void theCustomerCanBeFound() {
-    var customer = customerService.searchCustomer(firstName, lastName);
+    Customer customer = customerService.searchCustomer(firstName, lastName);
 
     Assertions.assertThat(customer).isNotNull();
   }
